@@ -97,6 +97,7 @@ export const UseGetMyUser = () => {
         const accesstoken = await getAccessTokenSilently()
         const response = await fetch(`${Apiurl}api/my/user`, {
             method: "GET",
+            credentials:"include",
             headers: {
                 Authorization: `Bearer ${accesstoken}`,
                 "Content-Type": "application/json"
