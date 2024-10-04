@@ -6,14 +6,13 @@ import UserRoutes from "./routes/UserRoutes";
 
 mongoose.connect(process.env.MONGO_URL as string).then(()=>console.log("connected to the database"))
 
-const allowedOrigins = ["https://easyeats-w0i8.onrender.com","http://localhost:5173"]
+const allowedOrigins = ["http://localhost:5173"]
 
 const app =Express()
 app.use(Express.json())
 app.use(cors({
     origin: allowedOrigins,
-    methods: 'GET,POST,PUT,DELETE',
-    credentials: true, // If you need to send cookies or other credentials
+    methods: 'GET,POST,PUT,DELETE',// If you need to send cookies or other credentials
   }));
 
 app.get("/health", async(req: Request, res: Response)=>{
