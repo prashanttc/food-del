@@ -21,3 +21,28 @@ export const ValidateMyUserRequest = [
   body("city").isString().notEmpty().withMessage("city must be string"),
   handlevalidationError,
 ];
+export const validateMyRestaurant = [
+  body("restaurantName").notEmpty().withMessage("name required"),
+  body("city").isString().notEmpty().withMessage("city required"),
+  body("estimatedTime")
+    .isFloat({ min: 0 })
+    .notEmpty()
+    .withMessage("estimated time must be POSITIVE"),
+  body("deliveryPrice")
+    .isFloat({ min: 0 })
+    .notEmpty()
+    .withMessage("delivery price must be POSITIVE"),
+  body("cuisines").isArray().notEmpty().withMessage("cuisine  must be array"),
+  body("menuItems")
+    .isArray()
+    .notEmpty()
+    .withMessage("menu items  must be array"),
+  body("menuItems.*.name")
+    .isString()
+    .notEmpty()
+    .withMessage("menu items name required"),
+  body("menuItems.*.price")
+    .isFloat({ min: 0 })
+    .notEmpty()
+    .withMessage("menu price name required"),
+];
