@@ -1,20 +1,16 @@
-import  express  from "express";
-import multer from "multer";
-import { CreateMyResturant, GetMyRestaurant, UpdateMyRestaurant } from "../controller/RestaurantController";
-import jwtCheck, { jwtParse } from "../middleware/auth";
-import { validateMyRestaurant } from "../middleware/validator";
+import Express from "express";
+import { param } from "express-validator";
+import { searchRestaurant } from "../controller/RestaurantController";
 
-const router = express.Router()
+const router = Express.Router();
 
-const storage = multer.memoryStorage();
-const upload = multer({
-    storage:storage,
-    limits:{
-        fieldSize: 5 * 1024 * 1024  //5mb
-    }
-})
-//api/my/rresturant
-router.get("/",jwtCheck,jwtParse,GetMyRestaurant)
-router.post("/",validateMyRestaurant,jwtCheck,jwtParse,upload.single("imageFile"),CreateMyResturant )
-router.put("/",validateMyRestaurant,jwtCheck,jwtParse,upload.single("imageFile"),UpdateMyRestaurant )
+router.get(
+  "/search/:city",
+  param("city")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("city param must be a valid string"),
+    searchRestaurant
+);
 export default router;

@@ -2,8 +2,9 @@ import  Express,{Request,Response}  from "express";
 import  cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
-import UserRoutes from "./routes/UserRoutes";
+import MyUserRoutes from "./routes/MyUserRoutes";
 import { v2 as cloudinary} from "cloudinary"
+import MyRestaurantRoutes from "./routes/MyRestaurantRoutes";
 import RestaurantRoutes from "./routes/RestaurantRoutes";
 
 mongoose.connect(process.env.MONGO_URL as string).then(()=>console.log("connected to the database"))
@@ -24,8 +25,9 @@ app.get("/health", async(req: Request, res: Response)=>{
 res.json({message:"health OK!!"})
 })
 
-app.use("/api/my/user", UserRoutes)
-app.use("/api/my/restaurant", RestaurantRoutes)
+app.use("/api/my/user", MyUserRoutes )
+app.use("/api/my/restaurant", MyRestaurantRoutes)
+app.use("/api/restaurant", RestaurantRoutes)
 
 app.listen(8000,()=>{
     console.log("server is running on port: 8000")

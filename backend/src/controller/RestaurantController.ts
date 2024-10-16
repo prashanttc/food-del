@@ -1,73 +1,62 @@
-import { Response, Request } from "express";
+import { Request, Response } from "express";
 import Restaurant from "../models/restaurant";
-import cloudinary from "cloudinary";
-import mongoose from "mongoose";
 
-const uploadImage = async (file: Express.Multer.File) => {
-  const image = file;
-  const base64Image = Buffer.from(image.buffer).toString("base64");
-  const dataURI = `data:${image.mimetype};base64,${base64Image}`;
-  const uploadResponse = await cloudinary.v2.uploader.upload(dataURI);
-  return uploadResponse.url;
-};
-
-export const CreateMyResturant = async (req: Request, res: Response) => {
+export const searchRestaurant = async (req: Request, res: Response) => {
   try {
-    const imageUrl = await uploadImage(req.file as Express.Multer.File);
-    const exsistingRestaurant = await Restaurant.findOne({ user: req.userId });
-    if (exsistingRestaurant) {
-      return res.status(409).json({ message: "restaurant already exists" });
-    }
-    const restaurant = new Restaurant(req.body);
-    restaurant.user = new mongoose.Types.ObjectId(req.userId);
-    restaurant.imageUrl = imageUrl;
-    restaurant.lastUpdated = new Date();
-    await restaurant.save();
+    const city = req.params.city;
+    const searchQuery = (req.query.searchQuery as string) || "";
+    const selectedCuisines = (req.query.selectedCuisines as string) || "";
+    const sortOption = (req.query.sortOption as string) || "lastUpdated";
+    const page = parseInt(req.query.page as string) || 1;
 
-    res.status(201).send(restaurant);
+    let query: any = {};
+
+    query["city"] = new RegExp(city, "i");
+    const cityCheck = await Restaurant.countDocuments(query);
+    if (cityCheck === 0) {
+      return res.status(404).json({
+            data:[],
+            pagination:{
+                page:1,
+                total:0,
+                pages:1
+            }
+      });
+    }
+    if (selectedCuisines) {
+      const cuisineArray = selectedCuisines
+        .split(",")
+        .map((cuisine) => new RegExp(cuisine, "i"));
+      query["cuisines"] = { $all: cuisineArray };
+    }
+    if (searchQuery) {
+      const SearchRegex = new RegExp(searchQuery, "i");
+      query["$or"] = [
+        { restaurantName: SearchRegex },
+        { cuisines: { $in: [SearchRegex] } },
+      ];
+    }
+
+    const pageSize = 10;
+    const skip = (page - 1) * pageSize;
+    const restaurants = await Restaurant.find(query)
+      .sort({ [sortOption]: 1 })
+      .skip(skip)
+      .limit(pageSize)
+      .lean();
+
+    const total = await Restaurant.countDocuments(query);
+    const response = {
+      data: restaurants,
+      pagination: {
+        page,
+        total,  
+        pages: Math.ceil(total / pageSize),
+      },
+    };
+    res.json(response);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "something went wrong!!" });
-  }
-};
-
-export const UpdateMyRestaurant = async (req: Request, res: Response) => {
-  try {
-    const restaurant = await Restaurant.findOne({
-      user: req.userId,
-    });
-    if (!restaurant) {
-      return res.status(404).json({ message: "restaurant not found" });
-    }
-    restaurant.restaurantName = req.body.restaurantName;
-    restaurant.city = req.body.city;
-    restaurant.estimatedTime = req.body.estimatedTime;
-    restaurant.deliveryPrice = req.body.deliveryPrice;
-    restaurant.cuisines = req.body.cuisines;
-    restaurant.menuItems = req.body.menuItems;
-    restaurant.lastUpdated = new Date();
-    if (req.file) {
-      const imageUrl = await uploadImage(req.file as Express.Multer.File);
-      restaurant.imageUrl = imageUrl;
-    }
-    await restaurant.save();
-
-    res.status(201).send(restaurant);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "something went wrong!!" });
-  }
-};
-
-export const GetMyRestaurant = async (req: Request, res: Response) => {
-  try {
-    const restaurant = await Restaurant.findOne({ user: req.userId });
-    if (!restaurant) {
-      res.status(404).json({ message: "restaurant not found" });
-    }
-    res.json(restaurant);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "error fetching resaturant" });
+    res.status(500).json({ message: "something went wrong" });
   }
 };
