@@ -18,7 +18,7 @@ cloudinary.config({
 
 const app =Express()
 app.use(cors({
-    origin:""
+    origin:"https://food-del-1-bo9m.onrender.com"
 }))
 app.use(Express.json())
 
