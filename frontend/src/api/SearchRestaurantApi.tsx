@@ -12,7 +12,10 @@ export const useSearchRestaurant = (searchState: SearchState , city?:string) => 
         params.set("sortOption" , searchState.sortOptions)
         params.set("selectedCuisines" , searchState.selectedCuisines.join(","))
         const response = await fetch(`${Apiurl}api/restaurant/search/${city}?${params.toString()}`,{
-            method:"GET"
+            method:"GET",
+            headers:{
+                "Content-Type": "application/json",
+            }
         })
         if (!response.ok) {
             throw new Error("error fetching restaurant")
