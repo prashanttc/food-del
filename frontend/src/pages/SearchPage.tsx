@@ -59,9 +59,12 @@ const SearchPage = () => {
     }))
 
   }
-  const { result } = useSearchRestaurant( searchState , city)
+  const { result ,isLoading } = useSearchRestaurant( searchState , city)
   if (!result?.data || !city) {
     return <span> no result found</span>
+  }
+  if(isLoading){
+    return <span>is loading</span>
   }
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5 px-10">

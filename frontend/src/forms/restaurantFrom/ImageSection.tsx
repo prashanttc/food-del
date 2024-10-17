@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form"
 
 
 const ImageSection = () => {
-    const { control , watch } = useFormContext()
+    const { control, watch } = useFormContext()
     const ExistingImage = watch("imageUrl")
     return (
         <div className="space-y-2">
@@ -14,16 +14,16 @@ const ImageSection = () => {
                 <FormDescription>add an image that will be displayed for your hotel on search result </FormDescription>
             </div>
             <div className="flex flex-col gap-8 md:w-[50%]">
-{ExistingImage && <AspectRatio ratio={16/9} className="rounded-md object-cover h-full w-full"><img src={ExistingImage} /></AspectRatio>}
+                {ExistingImage && <AspectRatio ratio={16 / 9} className="rounded-md object-cover"><img className="w-full h-full" src={ExistingImage} /></AspectRatio>}
                 <FormField control={control} name="imageFile" render={({ field }) => (
                     <FormItem>
                         <FormControl>
                             <Input className="bg-white"
                                 type="file"
                                 accept=".png , .jpg , .jpeg"
-                                onChange={(event) =>field.onChange(event.target.files ? event.target.files[0] : null)} />
+                                onChange={(event) => field.onChange(event.target.files ? event.target.files[0] : null)} />
                         </FormControl>
-                        <FormMessage/>
+                        <FormMessage />
                     </FormItem>
                 )} />
             </div>

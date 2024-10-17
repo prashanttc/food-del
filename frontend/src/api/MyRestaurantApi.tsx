@@ -14,7 +14,7 @@ export const useCreateMyRestaurant = () => {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${accesstoken}`,
-                "Content-Type": "application/json",
+                
             },
             body: restaurantFormData,
         });
@@ -46,7 +46,7 @@ export const useUpdateMyRestaurant = () => {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${accesstoken}`,
-                "Content-Type": "application/json",
+                
             },
             body:restaurantFormData
         })
