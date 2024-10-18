@@ -33,3 +33,30 @@ export type SearchRestaurant = {
     total:number;
   }
 }
+export type OrderStatus =
+  |"placed"
+  |"paid"
+  |"outForDelivery"
+  |"inProgress"
+  |"delivered";
+
+export type Order ={
+  _id:string;
+  restaurant:Restaurant;
+  user:User;
+  cartItems:{
+    menuItemId:string;
+    name:string;
+    quantity:string;
+  }[],
+  deliveryDetails:{
+    name:string;
+    addressLine1:string;
+    city:string;
+    email:string;
+  },
+  totalAmount:number;
+  status:OrderStatus;
+  createdAt:string;
+  restaurantId:string;
+}
