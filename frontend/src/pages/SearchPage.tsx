@@ -1,5 +1,6 @@
 import { useSearchRestaurant } from "@/api/SearchRestaurantApi";
 import CuisinesFilter from "@/components/CuisinesFilter";
+import LoadingButton from "@/components/LoadingButton";
 import PageSelector from "@/components/PageSelector";
 import Searchbox, { SearchForm } from "@/components/Searchbox";
 import SearchRestaurantCard from "@/components/SearchRestaurantCard";
@@ -60,12 +61,13 @@ const SearchPage = () => {
 
   }
   const { result ,isLoading } = useSearchRestaurant( searchState , city)
+  if(isLoading){
+    return <LoadingButton/>
+  }
   if (!result?.data || !city) {
     return <span> no result found</span>
   }
-  if(isLoading){
-    return <span>is loading</span>
-  }
+  
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5 px-10">
       <div id="cuisines-list"><CuisinesFilter

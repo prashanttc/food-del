@@ -7,10 +7,10 @@ import CuisineSection from "./CuisineSection";
 import { Separator } from "@/components/ui/separator";
 import MenuItem from "./MenuItem";
 import ImageSection from "./ImageSection";
-import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
 import { Restaurant } from "@/type";
 import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
     restaurantName: z.string({
@@ -96,7 +96,7 @@ const ManageRestaurantForm = ({ onSave, isLoading , restaurant }: Props) => {
             <MenuItem />
             <Separator />
             <ImageSection/>
-            {isLoading?<LoadingButton/>:<Button type="submit" className="bg-orange-500">Submit</Button>}
+            {isLoading? <Button className="bg-orange-500"><Loader2 className="h-4 w-4 animate-spin"/></Button>:<Button type="submit" className="bg-orange-500">Submit</Button>}
            </form>
         </Form>
     )

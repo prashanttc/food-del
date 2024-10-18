@@ -6,7 +6,7 @@ const ProtectedRoute = () => {
     const{isAuthenticated,isLoading}= useAuth0()
 
     if(isLoading){
-      return <Progress className="mt-[20%] w-[9%] mx-auto "  color="white" value={63}/>;
+      return <Progress className="mt-[20%] w-[9%] mx-auto "  value={63}/>;
     }
     if(isAuthenticated){
       return <Outlet />

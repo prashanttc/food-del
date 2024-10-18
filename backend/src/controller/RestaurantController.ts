@@ -15,12 +15,12 @@ export const searchRestaurant = async (req: Request, res: Response) => {
     const cityCheck = await Restaurant.countDocuments(query);
     if (cityCheck === 0) {
       return res.status(404).json({
-            data:[],
-            pagination:{
-                page:1,
-                total:0,
-                pages:1
-            }
+        data: [],
+        pagination: {
+          page: 1,
+          total: 0,
+          pages: 1,
+        },
       });
     }
     if (selectedCuisines) {
@@ -50,11 +50,25 @@ export const searchRestaurant = async (req: Request, res: Response) => {
       data: restaurants,
       pagination: {
         page,
-        total,  
+        total,
         pages: Math.ceil(total / pageSize),
       },
     };
     res.json(response);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "something went wrong" });
+  }
+};
+
+export const getRestaurant = async (req: Request, res: Response) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+    const restaurant = await Restaurant.findById(restaurantId);
+    if (!restaurant) {
+      return res.status(404).json({ message: "restaurant not found" });
+    }
+    res.json(restaurant)
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "something went wrong" });

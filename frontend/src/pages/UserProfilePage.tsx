@@ -1,4 +1,5 @@
 import { UseGetMyUser, UseUpdateMyUser } from "@/api/MyUserApi"
+import LoadingButton from "@/components/LoadingButton";
 import UserProfileForm from "@/forms/UserProfileForm"
 
 const UserProfilePage = () => { 
@@ -7,10 +8,11 @@ const UserProfilePage = () => {
  
 
   if(isGetLoading){
-    <span>loading...</span>
+    return <LoadingButton/>
   }
+  
   if(!currentUser){
-<span>Unable to load user profile</span>
+return <span>Unable to load user profile</span>
   }
   return (
     <div>
