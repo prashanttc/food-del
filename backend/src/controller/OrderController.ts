@@ -20,7 +20,11 @@ const sig = req.headers["stripe-signature"];
  if(!order){
   return res.status(400).json({message:"order not found"})
  }
- order.totalAmount = event.data.object.amount_total;
+ const amountTotal = event.data.object.amount_total;
+ if (typeof amountTotal !== "number") {
+   return res.status(400).json({ message: "Invalid amount_total value" });
+ }
+ order.totalAmount = amountTotal /100;
  order.status = "paid";
  await order.save()
  }
