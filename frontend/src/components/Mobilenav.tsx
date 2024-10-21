@@ -10,7 +10,7 @@ const Mobilenav = () => {
     return (
         <Sheet>
             <SheetTrigger>
-                <Menu className="text-orange-500" />
+                <Menu className="md:text-orange-500  text-white size-5" />
             </SheetTrigger>
             <SheetContent className="space-y-3">
                 <SheetTitle>

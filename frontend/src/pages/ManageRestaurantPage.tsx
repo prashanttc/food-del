@@ -1,5 +1,5 @@
 import { useCreateMyRestaurant, useGetMyRestaurant, useGetMyRestaurantOrder, useUpdateMyRestaurant } from "@/api/MyRestaurantApi"
-import OrderItemCard from "@/components/orderItemCard"
+import OrderItemCard from "@/components/OrderItemCard"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ManageRestaurantForm from "@/forms/restaurantFrom/ManageRestaurantForm"
 
@@ -11,7 +11,7 @@ const ManageRestaurantPage = () => {
   const isEditing = !!restaurant;
   return (
 
-    <Tabs defaultValue="orders">
+    <Tabs defaultValue="orders" className="mx-10">
       <TabsList >
         <TabsTrigger value="orders">Orders </TabsTrigger>
         <TabsTrigger value="manage-restaurant">Manage-Restaurant </TabsTrigger>

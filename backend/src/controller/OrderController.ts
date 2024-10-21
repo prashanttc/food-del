@@ -6,6 +6,19 @@ const STRIPE = new Stripe(process.env.STRIPE as string);
 const FRONTEND_URL = process.env.FRONTEND_URL as string;
 const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET as string;
 
+export const getMySingleOrder =async(req:Request,res:Response) =>{
+  try{
+   const orderid = req.params.orderid
+    const order = await Order.findById(orderid).populate("user").populate("restaurant")
+    res.json(order)
+  }
+  catch(error){
+    console.log(error)
+    res.status(500).json({message:"unable to laod your single order"})
+  }
+
+}
+
 export const getMyOrder = async (req: Request, res: Response) => {
   try {
     const orders = await Order.find({ user: req.userId })
@@ -40,6 +53,7 @@ export const webhookHandler = async (req: Request, res: Response) => {
       order.status = "paid";
       await order.save();
     }
+  
     res.status(200).send();
   } catch (error: any) {
     console.log(error);
@@ -84,7 +98,6 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
       restaurant.menuItems
     );
     const deliveryPriceInPaise = Math.round(restaurant.deliveryPrice * 100); // Convert to paise
-    console.log("Delivery Price in Paise:", deliveryPriceInPaise);
     const session = await createSession(
       LineItems,
       newOrder._id.toString(),

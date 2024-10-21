@@ -8,6 +8,7 @@ import ManageRestaurantPage from "./pages/ManageRestaurantPage.tsx";
 import SearchPage from "./pages/SearchPage.tsx";
 import DetailPage from "./pages/DetailPage.tsx";
 import OrderPage from "./pages/OrderPage.tsx";
+import SingleOrderDetail from "./components/SingleOrderDetail.tsx";
 
 const AppRoutes = () => {
     return (
@@ -40,6 +41,11 @@ const AppRoutes = () => {
 
                 <Route path="/order-status" element={<Layout showHero={false}>
                     <OrderPage />
+                </Layout>}>
+                </Route>
+
+                <Route path="/order/:orderId" element={<Layout showHero={false}>
+                    <SingleOrderDetail />
                 </Layout>}>
                 </Route>
                

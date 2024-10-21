@@ -11,7 +11,7 @@ const Homepage = () => {
   }
   return (
     <div className="flex flex-col gap-12">
-      <div className="bg-white rounded-lg shadow-md p-8 flex flex-col gap-5 text-center items-center -mt-16">
+      <div className="bg-white rounded-lg shadow-md md:p-8 py-8 flex flex-col gap-5 text-center items-center -mt-16">
         <h1 className="md:text-5xl text-3xl text-wrap font-bold tracking-tight text-orange-600">
             tuck into a takeaway today
         </h1>

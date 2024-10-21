@@ -1,4 +1,4 @@
-import { CircleUserRound } from "lucide-react"
+import profile_icon from "../../assets/profile_icon.png"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "./ui/dropdown-menu"
 import { useAuth0 } from "@auth0/auth0-react"
 import { Link } from "react-router-dom"
@@ -7,14 +7,15 @@ import { Button } from "./ui/button"
 
 
 const Usermenu = () => {
-    const { user, logout } = useAuth0()
+    const { logout } = useAuth0()
     return (
         <div>
             <DropdownMenu>  
                 <DropdownMenuTrigger className="flex items-center px-3 gap-4 font-bold hover:text-orange-500 ">
               
-                    <CircleUserRound className="text-orange-500" />
-                    {user?.name}
+              <div className="rounded-full h-8 w-8 flex items-center justify-center ">
+              <img className="h-7 w-6" src={profile_icon} alt="" />
+              </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <DropdownMenuItem>

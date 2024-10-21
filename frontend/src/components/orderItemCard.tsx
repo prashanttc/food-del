@@ -12,7 +12,7 @@ type Props = {
     order: Order
 }
 
-const orderItemCard = ({ order }: Props) => {
+const OrderItemCard = ({ order }: Props) => {
     const { updateRestaurantStatus, isLoading } = useUpdateMyOrderStatus()
     const [status, setStatus] = useState<OrderStatus>(order.status)
     useEffect(() => {
@@ -91,4 +91,4 @@ const orderItemCard = ({ order }: Props) => {
     )
 }
 
-export default orderItemCard
+export default OrderItemCard

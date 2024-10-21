@@ -1,5 +1,6 @@
 import { Order } from "@/type"
 import { Separator } from "./ui/separator"
+import { Button } from "./ui/button"
 
 type Props={
     order:Order
@@ -25,9 +26,10 @@ const OrderDetail = ({order}:Props) => {
         <Separator/>
         <div className="flex flex-col">
             <span className="text-bold">Total</span>
-            <span>{order.totalAmount}</span>
-
+            <span>{order.totalAmount} rupees</span>
         </div>
+        <Separator/>
+        <Button variant="ghost" className="bg-orange-500 text-white hover:bg-orange-600 hover:text-white">cancel order</Button>
       
     </div>
   )
