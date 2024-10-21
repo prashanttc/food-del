@@ -67,8 +67,6 @@ const DetailPage = () => {
         })
     }
     const onCheckOut = async (userFormdata: userFormData) => {
-        console.log("formdata",userFormdata)
-        console.log("email",userFormdata.email)
         if(!restaurant){
             return ;
         }

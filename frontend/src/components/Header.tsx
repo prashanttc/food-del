@@ -5,7 +5,7 @@ import CenterMenu from "./CenterMenu.tsx"
 
 const Header = () => {
   return (
-    <div className="md:py-6 py-3 px-7 bg-orange-500  md:mx-0 md:px-32 md:bg-white border-b-2 border-white md:mb-0 md:drop-shadow-md">
+    <div className="md:py-6 py-3 px-7 bg-orange-500  md:px-32 md:bg-white border-b-2 border-white md:mb-0 md:drop-shadow-md">
       <div className="container mx-auto  flex justify-between items-center ">
         <Link to="/" className="md:text-3xl text-lg font-bold md:text-orange-500 text-white tracking-tight ">
           eazyeats.com
