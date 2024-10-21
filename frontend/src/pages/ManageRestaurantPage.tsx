@@ -8,7 +8,7 @@ const ManageRestaurantPage = () => {
   const { updateRestaurant, isLoading: updateloading } = useUpdateMyRestaurant()
   const { createRestaurant, isLoading: createloading } = useCreateMyRestaurant()
   const { orders } = useGetMyRestaurantOrder()
-  const isEditing = !!restaurant;
+  const isEditing = !!restaurant
   return (
 
     <Tabs defaultValue="orders" className="mx-10">
