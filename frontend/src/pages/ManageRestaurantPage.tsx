@@ -1,5 +1,5 @@
 import { useCreateMyRestaurant, useGetMyRestaurant, useGetMyRestaurantOrder, useUpdateMyRestaurant } from "@/api/MyRestaurantApi"
-import OrderItemCard from "@/components/OrderItemCard.tsx"
+import OrderItemCard from "@/components/OrderItemCard"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import ManageRestaurantForm from "@/forms/restaurantFrom/ManageRestaurantForm"
 
