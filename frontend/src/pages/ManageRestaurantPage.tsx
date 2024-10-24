@@ -17,8 +17,12 @@ const ManageRestaurantPage = () => {
         <TabsTrigger value="manage-restaurant">Manage-Restaurant </TabsTrigger>
       </TabsList>
       <TabsContent value="orders" className="space-y-5 bg-gray-50 p-  10 rounded-lg">
-        <h2 className="tetx-2xl font-bold">{orders?.length} active orders</h2>
-        {orders?.map((order) => <OrderCard order={order} />)}
+      <h2 className="text-2xl font-bold">{orders ? orders.length : 0} active orders</h2>
+        {orders && orders.length > 0 ? (
+          orders.map((order) => <OrderCard order={order} />) 
+        ) : (
+          <p>No active orders.</p>
+        )}
       </TabsContent>
       <TabsContent value="manage-restaurant">
         <ManageRestaurantForm

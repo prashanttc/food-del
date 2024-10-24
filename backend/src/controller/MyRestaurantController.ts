@@ -63,12 +63,16 @@ export const UpdateMyRestaurant = async (req: Request, res: Response) => {
 export const GetMyRestaurant = async (req: Request, res: Response) => {
   try {
     const restaurant = await Restaurant.findOne({ user: req.userId });
+    console.log(restaurant)
     if (!restaurant) {
-     return res.status(404).json({ message: "restaurant not found" });
+      return res.status(404).json({ 
+        message: "Restaurant not found", 
+        userId: req.userId 
+      });
     }
     res.json(restaurant);
   } catch (error) {
-    console.log(error);
+    console.log("error fetching restaurant",error);
     res.status(500).json({ message: "error fetching resaturant" });
   }
 };

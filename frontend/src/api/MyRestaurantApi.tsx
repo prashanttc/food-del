@@ -71,6 +71,7 @@ export const useUpdateMyRestaurant = () => {
 }
 export const useGetMyRestaurant = () => {
     const { getAccessTokenSilently } = useAuth0();
+    console.log("hwllo")
 
     const GetMyRestaurantRequest = async (): Promise<Restaurant> => {
 
@@ -83,6 +84,7 @@ export const useGetMyRestaurant = () => {
                 "Content-Type": "application/json",
             }
         })
+        console.log(response);
         if (!response.ok) {
             throw new Error("error fetching restaurant")
         }
